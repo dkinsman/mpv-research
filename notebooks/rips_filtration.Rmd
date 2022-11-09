@@ -1,0 +1,79 @@
+---
+title: "rips_filtration"
+output: html_document
+date: "2022-10-19"
+---
+
+```{r}
+#import packages
+library(TDA)
+library(tidyverse)
+library(plotrix) # packages for plot function
+```
+
+# Data Load
+```{r}
+getwd()
+list.files(path = ('../raw'))
+df = read.csv(file = '../raw/mpv-data.csv')
+```
+
+```{r, fig.width=3, fig.height=3.5}
+mi = df %>% filter(state == "MI") %>% subset(select = c('latitude','longitude'))
+
+coords = cbind(mi$longitude, mi$latitude)
+mi_range <- c( -82, -89, 41,48)
+xrange <- diff(mi_range[1:2])
+yrange <- diff(mi_range[3:4])
+
+RipsFilt = ripsFiltration(coords, maxdimension = 2, maxscale = 2, dist = 'euclidean')
+
+plot(mi$longitude,mi$latitude, xlab = "Longitude",
+     ylab = "Latitude", main = "Michigan MPV", xlim = c(mi_range[1] - .1*xrange, mi_range[2] + .1*xrange),
+     ylim = c(mi_range[3] - .1 * yrange, mi_range[4] + .1 * yrange), pch=20)
+
+
+plot(NULL, type = "n", xlim = mi_range[1:2], ylim = mi_range[3:4],
+     main = "MI Rips Complex for r = sqrt(14)",
+     xlab = "", ylab = "")
+
+for(j in 1:length(coords[, 1])) {
+  draw.circle(x = coords[j, 1], y = coords[j, 2], radius = sqrt(14)/2, col = rgb(0.1, 0.6, 0.1, 0.05))
+}
+for (idx in seq(along = RipsFilt[["cmplx"]][RipsFilt$values < sqrt(14)])) {
+  polygon(coords[RipsFilt[["cmplx"]][[idx]], , drop = FALSE],
+          col = "pink", border = NA, xlim = lim[1:2], ylim = lim[3:4])
+}
+for (idx in seq(along = RipsFilt[["cmplx"]][RipsFilt$values < sqrt(14)])) {
+  polygon(coords[RipsFilt[["cmplx"]][[idx]], , drop = FALSE],
+          col = NULL, xlim = lim[1:2], ylim = lim[3:4])
+}
+points(S, pch = 16)
+
+```
+```{r}
+for(j in 1:length(S[, 1])) {
+  draw.circle(x = S[j, 1], y = S[j, 2], radius = sqrt(14)/2, col = rgb(0.1, 0.6, 0.1, 0.05))
+}
+for (idx in seq(along = RipsFilt[["cmplx"]][RipsFilt$values < sqrt(14)])) {
+  polygon(S[RipsFilt[["cmplx"]][[idx]], , drop = FALSE],
+          col = "pink", border = NA, xlim = lim[1:2], ylim = lim[3:4])
+}
+for (idx in seq(along = RipsFilt[["cmplx"]][RipsFilt$values < sqrt(14)])) {
+  polygon(S[RipsFilt[["cmplx"]][[idx]], , drop = FALSE],
+          col = NULL, xlim = lim[1:2], ylim = lim[3:4])
+}
+points(S, pch = 16)
+```
+
+```{r}
+rips = ripsFiltration(mi, maxdimension = 2, maxscale = 2, dist = 'euclidean')
+
+class(rips) <- c(class(rips), "rips")
+
+plot(rips, animate = TRUE, fn_out = 'rips_example.gif',
+     lout = 80, interval = 0.2)
+
+
+```
+
