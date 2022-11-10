@@ -1,6 +1,8 @@
 from persistence import *
+import statistics
 
 def main():
+    l0,l1 = [], []
     df = pd.read_csv('raw/mpv-data.csv')
     print(df.shape)
     df = df[['latitude', 'longitude', 'state']]
@@ -15,8 +17,12 @@ def main():
         print(sta.shape)
         lat_long = sta.values.tolist()
         rips = rips_pd(lat_long, s)
-        #alpha_pd(lat_long, s)
-        rips_landscapes(lat_long, s, rips)
+        #alpha = alpha_pd(lat_long, s)
+        # L=pers_landscapes(s, rips)
+        # l0.append(L[0])
+        # l1.append(L[1])
+    
+        
 
 
 if __name__=='__main__':
