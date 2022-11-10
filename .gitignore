@@ -1,1 +1,7 @@
+__pycache__
+
 .DS_Store
+.Rhistory
+.Rdata
+.ipynb_checkpoints
+.idea
