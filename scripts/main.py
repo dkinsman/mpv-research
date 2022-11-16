@@ -1,5 +1,4 @@
 from persistence import *
-import statistics
 
 def main():
     l0,l1 = [], []
@@ -16,12 +15,17 @@ def main():
         sta = st.drop(columns='state')
         print(sta.shape)
         lat_long = sta.values.tolist()
-        rips = rips_pd(lat_long, s)
-        #alpha = alpha_pd(lat_long, s)
-        # L=pers_landscapes(s, rips)
-        # l0.append(L[0])
-        # l1.append(L[1])
+        #rips = rips_pd(lat_long, s)
+        alpha = alpha_pd(lat_long, s)
+        L=pers_landscapes(s, alpha, 'alpha')
+        l0.append(L[0])
+        l1.append(L[1])
+
+    avg0 = np.mean(np.array(l0), axis = 0)
+    avg1 = np.mean(np.array(l1), axis = 0)
     
+    plot_landscapes(avg0, 0, 'alpha')
+    plot_landscapes(avg1, 1, 'alpha')
         
 
 

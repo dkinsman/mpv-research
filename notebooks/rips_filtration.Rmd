@@ -9,6 +9,7 @@ date: "2022-10-19"
 library(TDA)
 library(tidyverse)
 library(plotrix) # packages for plot function
+library(maps)
 ```
 
 # Data Load
@@ -19,14 +20,19 @@ df = read.csv(file = '../raw/mpv-data.csv')
 ```
 
 ```{r, fig.width=3, fig.height=3.5}
+lim <- map('state', 'Michigan', plot=F)$range
 mi = df %>% filter(state == "MI") %>% subset(select = c('latitude','longitude'))
+
+mt_range <- map("state", "Montana", plot = FALSE)$range
+xrange <- diff(mt_range[1:2])
+yrange <- diff(mt_range[3:4])
 
 coords = cbind(mi$longitude, mi$latitude)
 mi_range <- c( -100, -80, 41,48)
 xrange <- diff(mi_range[1:2])
 yrange <- diff(mi_range[3:4])
 
-RipsFilt = ripsFiltration(coords, maxdimension = 2, maxscale = 2, dist = 'euclidean')
+# RipsFilt = ripsFiltration(coords, maxdimension = 2, maxscale = 2, dist = 'euclidean')
 ```
 ```{r}
 plot(mi$longitude,mi$latitude, xlab = "Longitude",

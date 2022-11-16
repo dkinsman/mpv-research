@@ -7,3 +7,4 @@ To-do:
 - go thorugh notebooks, lots of unnecessary, messy code
 - Persistence diagrams w/Rips complex have been generated, still need to generate alpha diagrams to compare scales.
 - work on modularity of code
+- add michigan state map to complex map
