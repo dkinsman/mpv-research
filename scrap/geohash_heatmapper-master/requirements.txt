@@ -1,5 +1,0 @@
-python-geohash
-pandas
-geopandas
-shapely
-seaborn
