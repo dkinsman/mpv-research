@@ -31,16 +31,16 @@ FltRips <- ripsFiltration(X = coords, maxdimension = 2,
 
 # plot rips filtration
 # WIP, session currently aborts
-png(filename = 'output/mi_rips_vis.png', width = 4, height = 4, units= 'in', res = 1000)
-plot(NULL, type = "n", xlim = lim[1:2], ylim = lim[3:4],
-     main = "Rips Filtration Plot")
-for (idx in seq(along = FltRips[["cmplx"]])) {
-  polygon(FltRips[["coordinates"]][FltRips[["cmplx"]][[idx]], , drop = FALSE],
-          col = "pink", border = NA, xlim = lim[1:2], ylim = lim[3:4])
-}
-for (idx in seq(along = FltRips[["cmplx"]])) {
-  polygon(FltRips[["coordinates"]][FltRips[["cmplx"]][[idx]], , drop = FALSE],
-          col = NULL, lwd = 0.25, xlim = lim[1:2], ylim = lim[3:4])
-}
-points(FltRips[["coordinates"]], pch = 16, cex = 0.40, col = rgb(0,0,0,0.40))
-dev.off()
+# png(filename = 'output/mi_rips_vis.png', width = 4, height = 4, units= 'in', res = 1000)
+# plot(NULL, type = "n", xlim = lim[1:2], ylim = lim[3:4],
+#      main = "Rips Filtration Plot")
+# for (idx in seq(along = FltRips[["cmplx"]])) {
+#   polygon(FltRips[["coordinates"]][FltRips[["cmplx"]][[idx]], , drop = FALSE],
+#           col = "pink", border = NA, xlim = lim[1:2], ylim = lim[3:4])
+# }
+# for (idx in seq(along = FltRips[["cmplx"]])) {
+#   polygon(FltRips[["coordinates"]][FltRips[["cmplx"]][[idx]], , drop = FALSE],
+#           col = NULL, lwd = 0.25, xlim = lim[1:2], ylim = lim[3:4])
+# }
+# points(FltRips[["coordinates"]], pch = 16, cex = 0.40, col = rgb(0,0,0,0.40))
+# dev.off()
