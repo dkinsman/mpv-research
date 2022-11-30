@@ -4,6 +4,7 @@
 import numpy as np
 from sklearn import datasets
 import pandas as pd
+import geopandas as gpd
 
 # need these for plotting
 import matplotlib.pyplot as plt
@@ -35,17 +36,28 @@ for i in range(0, len(rips_complex)):
     if len(dionysus._dionysus.Filtration.__getitem__(rips_complex,i)) == 3:
         triangles.append([dionysus._dionysus.Filtration.__getitem__(rips_complex,i)[0],dionysus._dionysus.Filtration.__getitem__(rips_complex,i)[1],dionysus._dionysus.Filtration.__getitem__(rips_complex,i)[2]])    
 
-fig4 = plt.figure(figsize=(10,10))
+#visualization
 
-ax = fig4.add_subplot()
+#add a map
+usa = gpd.read_file('raw/maps/cb_2018_us_state_20m.shp', shape_restore_shx = True)
+#print(usa.head())
+mi = usa[usa.NAME=='Michigan']
+fig4 = plt.figure(figsize=(20,20))
+ax = mi.boundary.plot(color = 'black', linewidth = 0.5)
+#ax = fig4.add_subplot()
 
 # plot edges
 for i in range(len(edges)):
-    ax.plot(np.transpose(coords[edges[i],:])[0], np.transpose(coords[edges[i],:])[1], color = 'black')
+    ax.plot(np.transpose(coords[edges[i],:])[0], np.transpose(coords[edges[i],:])[1], color = 'black', linewidth = 0.25)
  
 # plot triangles
 for i in range(len(triangles)):
     vtx = coords[triangles[i],:]
     tri = PolyCollection([vtx])
+    tri.set_alpha(0.25)
     ax.add_collection(tri)
-plt.savefig('output/mi_rips_vis.png', bbox_inches = 'tight')
+
+plt.title('Rips Complex Filtration Plot (MI)')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.savefig('output/mi_rips_vis.png', bbox_inches = 'tight', dpi = 1500)
