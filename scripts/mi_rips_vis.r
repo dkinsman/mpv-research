@@ -14,7 +14,7 @@ clusters <- c(data.frame(x = c(-83.0458, -85.5872, -83.6875,-85.6681),
 FltRipsComplex <- ripsFiltration(X = coords, maxdimension = 1, maxscale = 0.25, dist = 'euclidean',
                                  library = 'GUDHI', printProgress = TRUE)
 # plot alpha complex filtration
-png(filename = 'output/mi_rips_vis2.png', width = 5, height = 6, units= 'in', res = 1200)
+png(filename = 'output/mi_rips_vis.png', width = 5, height = 6, units= 'in', res = 300)
 lim <- map('state', 'Michigan', plot=FALSE)$range
 plot(NULL, type = "n", xlim = lim[1:2], ylim = lim[3:4],
      main = "Rips Complex Filtration Plot (MI)", xlab = 'Longitute', ylab = 'Ladtitude')
@@ -29,6 +29,6 @@ for (idx in seq(along = FltRipsComplex[["cmplx"]])) {
 map('state', 'Michigan', add=T)
 points(FltRipsComplex[["coordinates"]], pch = 16, cex = 0.20, col = rgb(0,0,0,0.40))
 #for the clusters to be plotted
-points(clusters, pch = 16, cex = 0.65, col = rgb(0.85,0,0.15))
-text(clusters$x, clusters$y-0.15, labels = clusters$z, cex = 0.65, col = rgb(0.85,0,0.15))
+#points(clusters, pch = 16, cex = 0.65, col = rgb(0.85,0,0.15))
+#text(clusters$x, clusters$y-0.15, labels = clusters$z, cex = 0.65, col = rgb(0.85,0,0.15))
 dev.off()

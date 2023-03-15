@@ -5,11 +5,6 @@ import numpy as np
 import datetime as dt
 import os
 
-from persistence import *
-import numpy as np
-import datetime as dt
-import os
-
 def main():
 
     os.chdir('./scripts')
